@@ -10,7 +10,12 @@ public class Main
 		// for(String arg : args)
 			// System.out.println(arg);
 		Scanner input = new Scanner(new File(args[0]));
+		// System.out.println(args[0]);
+
 		String line = input.nextLine();
+		// System.out.println("Print the first line");
+		// System.out.println(line);
+		// System.out.println(line.substring(line.indexOf(":")+2) );
 		int states = Integer.parseInt(line.substring(line.indexOf(":") +2));
 
 		// input.nextLine();
@@ -29,16 +34,21 @@ public class Main
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		//get the alphabet?
 		String tempLine = input.nextLine();
-		tempLine = tempLine.trim();
-		String alphabet = tempLine.substring(tempLine.indexOf(":")+1);
-		alphabet = alphabet.trim();
+		// tempLine = tempLine.trim();
+		String alphabet = tempLine.substring(tempLine.indexOf(":")+2);
+		// alphabet = alphabet.trim();
 		String[] alpha = alphabet.split("");
-		System.out.println(alpha.length);
+		//TESTING
+		// for(String a : alpha)
+		// {
+			// System.out.println(a);
+		// }
+		// System.out.println(alpha.length);
 		//grab state input
 		//stupid fencepost
 		for(int i =0; i < states; i++)
 		{
-			System.out.println("what line are we on: " + i);
+			// System.out.println("what line are we on: " + i);
 			Node state = new Node();
 			if(acceptingState.contains(i))
 				state.accepts = true;
@@ -65,12 +75,15 @@ public class Main
 	}
 	//LOOKOUT
 	//Dan's gonna put the empty string in here, I GUARENTEE IT
+	//Post-word: Really Dan? Really? there's like 10 empty strings in a row
 	public static void traverseDFA(ArrayList<Node> nodes, String file) throws FileNotFoundException
 	{
 		Scanner input = new Scanner(new File(file));
+		//I hate java now
+		input.useDelimiter("\n");
 		while(input.hasNext())
 		{
-
+			// System.out.println("Line");
 			Node itr = nodes.get(0); //starting state is always 0 (Thank god)
 			String line = input.nextLine();
 			// System.out.println("length of string is");
@@ -108,6 +121,42 @@ public class Main
 
 
 		}
+		//so because the last line won't have a new character we have to do this
+		//seperately (NEVER JAVA AGAIN)
+		  Node itr = nodes.get(0);
+			String line = input.nextLine();
+			// System.out.println("length of string is");
+			// System.out.println(line.length());
+			line = line.trim();
+			String[] str = line.split("");
+			// System.out.println(line);
+			if(line.length() == 0)
+			{
+				if(itr.accepts)
+					System.out.println("accept");
+				else
+					System.out.println("reject");
+				return;
+			}
+			for(String move : str)
+			{
+				String nextMove = itr.map.get(move);
+
+				itr = getNode(nodes, nextMove);
+				if(itr == null)
+				{
+					//Oh I shoulda thought about this beforehand
+					//oh well, set the node to reject and break out of this loop
+					itr = new Node();
+					itr.accepts = false;
+					break;
+				}
+			}
+			if(itr.accepts)
+				System.out.println("accept");
+			else
+				System.out.println("reject");
+
 	}
 	public static Node getNode(ArrayList<Node> nodes, String move)
 	{
