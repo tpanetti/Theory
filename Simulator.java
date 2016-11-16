@@ -3,22 +3,15 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
-public class Main
+public class Simulator
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		// for(String arg : args)
-			// System.out.println(arg);
 		Scanner input = new Scanner(new File(args[0]));
-		// System.out.println(args[0]);
 
 		String line = input.nextLine();
-		// System.out.println("Print the first line");
-		// System.out.println(line);
-		// System.out.println(line.substring(line.indexOf(":")+2) );
 		int states = Integer.parseInt(line.substring(line.indexOf(":") +2));
 
-		// input.nextLine();
 		line = input.nextLine();
 			ArrayList<Integer> acceptingState = new ArrayList<Integer>();
 			//parse the line for accepting states
@@ -34,28 +27,17 @@ public class Main
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		//get the alphabet?
 		String tempLine = input.nextLine();
-		// tempLine = tempLine.trim();
 		String alphabet = tempLine.substring(tempLine.indexOf(":")+2);
-		// alphabet = alphabet.trim();
 		String[] alpha = alphabet.split("");
-		//TESTING
-		// for(String a : alpha)
-		// {
-			// System.out.println(a);
-		// }
-		// System.out.println(alpha.length);
 		//grab state input
-		//stupid fencepost
 		for(int i =0; i < states; i++)
 		{
-			// System.out.println("what line are we on: " + i);
 			Node state = new Node();
 			if(acceptingState.contains(i))
 				state.accepts = true;
 			else
 				state.accepts = false;
 
-			//I feel like tom sawyer with all these fencepost problems
 			state.nodeIndex = i;
 			//reuse line and temp cause why not
 			state.map = new HashMap<String,String>();
@@ -73,6 +55,7 @@ public class Main
 
 
 	}
+
 	//LOOKOUT
 	//Dan's gonna put the empty string in here, I GUARENTEE IT
 	//Post-word: Really Dan? Really? there's like 10 empty strings in a row
@@ -83,14 +66,10 @@ public class Main
 		input.useDelimiter("\n");
 		while(input.hasNext())
 		{
-			// System.out.println("Line");
 			Node itr = nodes.get(0); //starting state is always 0 (Thank god)
 			String line = input.nextLine();
-			// System.out.println("length of string is");
-			// System.out.println(line.length());
 			line = line.trim();
 			String[] str = line.split("");
-			// System.out.println(line);
 			if(line.length() == 0)
 			{
 				if(itr.accepts)
@@ -125,11 +104,8 @@ public class Main
 		//seperately (NEVER JAVA AGAIN)
 		  Node itr = nodes.get(0);
 			String line = input.nextLine();
-			// System.out.println("length of string is");
-			// System.out.println(line.length());
 			line = line.trim();
 			String[] str = line.split("");
-			// System.out.println(line);
 			if(line.length() == 0)
 			{
 				if(itr.accepts)
@@ -171,7 +147,8 @@ public class Main
 		return null;
 	}
 
-
+  //TESTING
+	/*
 	public static void printNodes(ArrayList<Node> nodes)
 	{
 		for(Node node : nodes)
@@ -180,5 +157,5 @@ public class Main
 		System.out.println(node.map);
 		}
 
-	}
+	} */
 }

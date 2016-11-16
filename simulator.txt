@@ -1,4 +1,4 @@
 Build:
-	javac Main.java Node.java
+	javac Simulator.java Node.java
 Run:
-	java Main
+	java Simulator
