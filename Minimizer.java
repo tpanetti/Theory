@@ -3,9 +3,10 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 public class Minimizer
 {
-  public static void main(String[] args)
+  public static void main(String[] args) throws FileNotFoundException
   {
     Scanner input = new Scanner(new File(args[0]));
 
@@ -49,8 +50,61 @@ public class Minimizer
 			}
 			nodes.add(state);
 		}
+    minimizeDFA(nodes);
 
 
+  }
+
+  public static void minimizeDFA(ArrayList<Node> nodes)
+  {
+    boolean[][] table = new boolean[nodes.size()][nodes.size()];
+    ArrayList<Node> minimizedDFA = new ArrayList<Node>();
+    //falsify the array
+    for(int i=0;i<nodes.size();i++)
+      for(int j=0;j<nodes.size();j++)
+        table[i][j]=false;
+
+    //Loop through the states
+    //Step 2: Consider every state pair (Qi, Qj) in the DFA where Qi ∈ F
+    //and Qj ∉ F or vice versa and mark them.
+    int i =0;
+    for(Node state : nodes)
+    {
+      //If that state does not accept, skip
+      if(!state.accepts)
+        continue;
+      int j =0;
+      for(Node otherState : nodes)
+      {
+        if(otherState.accepts)
+          continue;
+        //state = Qi, otherState = Qj, Qi = F, Qj != F
+        //mark it zero dude
+        table[i][j] = true;
+        j++;
+      }
+      i++;
+    }
+    //Step 3: If there is an unmarked pair (Qi, Qj), mark it if the pair
+    //{δ(Qi, A), δ (Qi, A)} is marked for some input alphabet
+    //In layman's
+    //check unmarked states (i,j) if either can move to an accepting
+    //state, mark it zero dude
+    for(i =0; i < table.length;i++)
+      for(int j=0; j<table[i].length;j++)
+      {
+        if(table[i][j] == true)
+          continue;
+        Node index = nodes.get(i);
+        Node jindex = nodes.get(j);
+        Iterator iIterator = index.map.entrySet().iterator();
+      }
+
+
+  }
+
+  public static void printDFA(ArrayList<Node> nodes)
+  {
 
   }
 
