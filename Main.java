@@ -29,13 +29,16 @@ public class Main
 		ArrayList<Node> nodes = new ArrayList<Node>();
 		//get the alphabet?
 		String tempLine = input.nextLine();
+		tempLine = tempLine.trim();
 		String alphabet = tempLine.substring(tempLine.indexOf(":")+1);
 		alphabet = alphabet.trim();
 		String[] alpha = alphabet.split("");
+		System.out.println(alpha.length);
 		//grab state input
 		//stupid fencepost
 		for(int i =0; i < states; i++)
 		{
+			System.out.println("what line are we on: " + i);
 			Node state = new Node();
 			if(acceptingState.contains(i))
 				state.accepts = true;

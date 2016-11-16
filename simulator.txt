@@ -1,0 +1,4 @@
+Build:
+	javac Main.java Node.java
+Run:
+	java Main
