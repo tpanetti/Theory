@@ -19,9 +19,7 @@ public class Simulator
 			temp.next();temp.next();
 			while(temp.hasNext())
 			{
-
 				acceptingState.add(temp.nextInt());
-
 			}
 			temp.close();
 		ArrayList<Node> nodes = new ArrayList<Node>();
@@ -51,9 +49,6 @@ public class Simulator
 		}
 	// printNodes(nodes);
 	traverseDFA(nodes,args[1]);
-
-
-
 	}
 
 	//LOOKOUT
@@ -96,9 +91,6 @@ public class Simulator
 				System.out.println("accept");
 			else
 				System.out.println("reject");
-
-
-
 		}
 		//so because the last line won't have a new character we have to do this
 		//seperately (NEVER JAVA AGAIN)
@@ -132,7 +124,6 @@ public class Simulator
 				System.out.println("accept");
 			else
 				System.out.println("reject");
-
 	}
 	public static Node getNode(ArrayList<Node> nodes, String move)
 	{

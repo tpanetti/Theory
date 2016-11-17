@@ -11,14 +11,5 @@ public class Node
 		this.map = map;
 		this.nodeIndex = nodeIndex;
 	}
-	public Node()
-	{
-
-	}
-
-
-
-
-
-
+	public Node(){}
 }
