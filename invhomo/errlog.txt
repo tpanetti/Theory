@@ -1,0 +1,5 @@
+comments.txt exists -- making backup comments.bak
+
+Done.
+Comments are in /home/tpanetti/Projects/DFA/isDFA/invhomo/comments.txt
+

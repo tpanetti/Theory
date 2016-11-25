@@ -1,0 +1,5 @@
+Build:
+	javac Invhome.java Node.java
+Run:
+	java Invhome
+
