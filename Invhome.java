@@ -67,12 +67,12 @@ public class Invhome
     while(input.hasNext())
       homos.add(input.nextLine());
     // homos.add(input.nextLine());
-    for(String str : inAlphabet)
-      System.out.println(str);
-    for(String str : outAlphabet)
-      System.out.println(str);
-    for(String str : homos)
-      System.out.println(str);
+    // for(String str : inAlphabet)
+    //   System.out.println(str);
+    // for(String str : outAlphabet)
+    //   System.out.println(str);
+    // for(String str : homos)
+    //   System.out.println(str);
 
       //build the inverse dfa
   ArrayList<Node> newDFA = new ArrayList<Node>();
@@ -83,21 +83,26 @@ public class Invhome
       newNode.accepts = true;
     else
       newNode.accepts = false;
+    newNode.nodeIndex = i;
     HashMap<String,String> newMap = new HashMap<String,String>();
 
     for(int j=0; j<homos.size();j++)
     {
       String iter = inAlphabet[j];
       if(homos.get(j).length() == 0){
-        System.out.println("Size is zero, so skip?");
+        // System.out.println("Size is zero, so skip?");
+        //Is it just starting state?
+        newMap.put(inAlphabet[j],i+"");
         continue;
       }
       String[] arr = homos.get(j).split("");
       Node iterr = nodes.get(i);
+      // System.out.println("iterator starts at: " + iter);
       for(int k=0; k<arr.length;k++)
       {
+        // System.out.println(arr[k] + ":" +iterr.map.get(arr[k]));
         //get the closure
-        iter = nodes.get(i).map.get(arr[k]);
+        iter = iterr.map.get(arr[k]);
         iterr = getNode(nodes, iter);
       }
       newMap.put(inAlphabet[j],iter);
@@ -105,7 +110,7 @@ public class Invhome
     newNode.map = newMap;
     newDFA.add(newNode);
   }
-  printDFA(newDFA);
+  printDFA(newDFA, inAlphabet);
 
 
   // for(int i =0; i < nodes.size(); i++)
@@ -146,12 +151,28 @@ public class Invhome
 		//can't move
 		return null;
 	}
-  public static void printDFA(ArrayList<Node> nodes)
+  public static void printDFA(ArrayList<Node> nodes, String[] alphabet)
   {
+    System.out.println("Number of states: " + nodes.size());
+    System.out.print("Accepting states: ");
+    for(Node temp : nodes)
+      if(temp.accepts)
+        System.out.print(temp.nodeIndex + " ");
+    System.out.println();
+    System.out.print("Alphabet: ");
+    for(String str : alphabet)
+      System.out.print(str);
+    System.out.println();
+
     for(Node node : nodes)
 		{
-		System.out.println(node.nodeIndex + ": " + node.accepts);
-		System.out.println(node.map);
+      for(int i=0; i < node.map.size();i++)
+      {
+        System.out.print(node.map.get(i+"") + " ");
+      }
+      System.out.println();
+		// System.out.println(node.nodeIndex + ": " + node.accepts);
+		// System.out.println(node.map);
 		}
   }
 }
