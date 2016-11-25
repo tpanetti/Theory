@@ -5,7 +5,7 @@ public class Node
 	//link to other states
 	public HashMap<String,String> map;
 	public int nodeIndex;
-	public Node(boolean accepts, HashMap map, int nodeIndex)
+	public Node(boolean accepts, HashMap<String,String> map, int nodeIndex)
 	{
 		this.accepts = accepts;
 		this.map = map;

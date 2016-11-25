@@ -60,18 +60,98 @@ public class Invhome
     String[] inAlphabet = inAlph.split("");
     line=input.nextLine();
     String outAlph = (line.substring(line.indexOf(":")+2));
+    //TODO: Possibly set the delimiter to \n after this
     String[] outAlphabet = outAlph.split("");
     ArrayList<String> homos= new ArrayList<String>();
+    // input.useDelimiter("\n");
     while(input.hasNext())
       homos.add(input.nextLine());
+    // homos.add(input.nextLine());
+    for(String str : inAlphabet)
+      System.out.println(str);
+    for(String str : outAlphabet)
+      System.out.println(str);
+    for(String str : homos)
+      System.out.println(str);
+
+      //build the inverse dfa
+  ArrayList<Node> newDFA = new ArrayList<Node>();
+  for(int i=0; i< nodes.size(); i++)
+  {
+    Node newNode = new Node();
+    if(nodes.get(i).accepts)
+      newNode.accepts = true;
+    else
+      newNode.accepts = false;
+    HashMap<String,String> newMap = new HashMap<String,String>();
+
+    for(int j=0; j<homos.size();j++)
+    {
+      String iter = inAlphabet[j];
+      if(homos.get(j).length() == 0){
+        System.out.println("Size is zero, so skip?");
+        continue;
+      }
+      String[] arr = homos.get(j).split("");
+      Node iterr = nodes.get(i);
+      for(int k=0; k<arr.length;k++)
+      {
+        //get the closure
+        iter = nodes.get(i).map.get(arr[k]);
+        iterr = getNode(nodes, iter);
+      }
+      newMap.put(inAlphabet[j],iter);
+    }
+    newNode.map = newMap;
+    newDFA.add(newNode);
+  }
+  printDFA(newDFA);
 
 
-    findHomo(nodes);
+  // for(int i =0; i < nodes.size(); i++)
+  // {
+  //   Node newNode = new Node();
+  //   if(nodes.get(i).accepts)
+  //     newNode.accepts = true;
+  //   else
+  //     newNode.accepts = false;
+  //   newNode.index = i;
+  //   HashMap<String,String> newMap = new HashMap<String,String>();
+  //   String iter = alpha[0];
+  //   for(int j=0 j< homos.size();j++)
+  //   {
+  //     String closure = homos.get(j);
+  //     //set the iterator to the first character of the old alphabet (aka starting state)
+  //     iter = nodes.get(i).map.get()
+  //   }
+  //
+  // }
+
+    // findHomo(nodes);
   }
 
   public static void findHomo(ArrayList<Node> nodes)
   {
 
   }
-
+  public static Node getNode(ArrayList<Node> nodes, String move)
+	{
+		// System.out.println("Stupid string is: " +move);
+		int state = Integer.parseInt(move);
+		for(Node iter : nodes)
+		{
+			if(iter.nodeIndex == state)
+				return iter;
+		}
+		//can't move
+		return null;
+	}
+  public static void printDFA(ArrayList<Node> nodes)
+  {
+    for(Node node : nodes)
+		{
+		System.out.println(node.nodeIndex + ": " + node.accepts);
+		System.out.println(node.map);
+		}
+  }
 }
