@@ -52,6 +52,8 @@ public class Invhome
 			}
 			nodes.add(state);
 		}
+    //print dfa
+    printDFA(nodes, alpha);
     //pasre homo
     //maybe check for \n as instead but we'll do that once it fails
     input = new Scanner(new File(args[1]));
@@ -135,10 +137,6 @@ public class Invhome
     // findHomo(nodes);
   }
 
-  public static void findHomo(ArrayList<Node> nodes)
-  {
-
-  }
   public static Node getNode(ArrayList<Node> nodes, String move)
 	{
 		// System.out.println("Stupid string is: " +move);
@@ -168,7 +166,7 @@ public class Invhome
 		{
       for(int i=0; i < node.map.size();i++)
       {
-        System.out.print(node.map.get(i+"") + " ");
+        System.out.print(node.map.get(alphabet[i]) + " ");
       }
       System.out.println();
 		// System.out.println(node.nodeIndex + ": " + node.accepts);
