@@ -52,8 +52,6 @@ public class Invhome
 			}
 			nodes.add(state);
 		}
-    //print dfa
-    printDFA(nodes, alpha);
     //pasre homo
     //maybe check for \n as instead but we'll do that once it fails
     input = new Scanner(new File(args[1]));
