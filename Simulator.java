@@ -124,7 +124,12 @@ public class Simulator
 		//so because the last line won't have a new character we have to do this
 		//seperately (NEVER JAVA AGAIN)
 		  Node itr = nodes.get(0);
-			String line = input.nextLine();
+		  	String line = "";
+		        try{
+			line = input.nextLine();
+			}catch(Exception e){
+				return;
+			}
 			// System.out.println("length of string is");
 			// System.out.println(line.length());
 			line = line.trim();
